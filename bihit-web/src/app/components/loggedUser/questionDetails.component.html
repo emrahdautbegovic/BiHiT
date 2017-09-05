@@ -1,0 +1,43 @@
+<div class="row" style="overflow:auto">
+    <div class="box box-primary">
+        <div class="box-header with-border">
+            <div class="row" style="margin-bottom:30px; margin-right:10px; margin-left:10px; display:block">
+                <div class="col-md-12" style="margin-top:5px">
+                    <h3 class="box-title" style="margin-top:3px;text-align:center">{{question.title}}</h3>
+                    <p style="text-align:center">(<b>Autor: </b>{{question.email}})</p>
+                </div>
+            </div> 
+        </div> 
+
+        <div class="box-header with-border">
+            <div class="row" style="margin-bottom:30px; margin-right:10px; margin-left:10px; display:block">
+                <div class="col-md-12" style="margin-top:5px">
+                    <h3 class="box-title" style="margin-top:3px">Odgovori:</h3>
+                    <p>Dodajte odgovor:</p>
+                    <p *ngIf="successfull" class="float-right" style="color:green">Odgovor uspješno postavljen</p>
+                    <textarea type="text" class="form-control" id="answerTitle" [(ngModel)]="answer.title" name="answerTitle"></textarea>
+                    <button type="button" class="btn btn-primary float-right" style="margin-top:10px" (click)="create(answer)">Dodaj</button> 
+                </div>
+                <div class="row" style="margin-top:100px;margin-left:20px;margin-right:20px">         
+                    <div class="col-md-12" style="margin-top:5px" *ngFor="let a of answers">
+                        <div class="col-sm-1">
+                            <div class="thumbnail">
+                                <img class="img-responsive user-photo" src="https://ssl.gstatic.com/accounts/ui/avatar_2x.png">
+                            </div><!-- /thumbnail -->
+                        </div><!-- /col-sm-1 -->
+                        <div class="col-sm-10">
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <strong>{{a.autor.email}}</strong> <span class="text-muted float-right">{{ a.created_at | date:'medium' }}</span>
+                                </div>
+                                <div class="panel-body">
+                                    {{a.title}}
+                                </div><!-- /panel-body -->
+                            </div><!-- /panel panel-default -->
+                        </div><!-- /col-sm-5 -->                                
+                    </div>
+                </div>
+            </div> 
+        </div> 
+    </div>
+</div>

@@ -5,6 +5,9 @@ Rails.application.configure do
   # every request. This slows down response time but is perfect for development
   # since you don't have to restart the web server when you make code changes.
   config.cache_classes = false
+  config.action_mailer.default_url_options = { host: 'localhost', port: 3000 }
+  config.action_mailer.delivery_method = :smtp
+  config.action_mailer.smtp_settings = { address: 'localhost', port: 1025 }
 
   # Do not eager load code on boot.
   config.eager_load = false
@@ -37,13 +40,19 @@ Rails.application.configure do
   # Raise an error on page load if there are pending migrations.
   config.active_record.migration_error = :page_load
 
-  # Debug mode disables concatenation and preprocessing of assets.
-  # This option may cause significant delays in view rendering with a large
-  # number of complex assets.
-  config.assets.debug = true
+  # config.action_mailer.default_url_options = {
+  #   :host => Rails.application.secrets.mailer_host
+  # }
 
-  # Suppress logger output for asset requests.
-  config.assets.quiet = true
+  # config.action_mailer.delivery_method = :smtp
+  # config.action_mailer.smtp_settings = {
+  #  :address              => "smtp.gmail.com",
+  #  :port                 => 587,
+  #  :user_name            => Rails.application.secrets.gmail_username,
+  #  :password             => Rails.application.secrets.gmail_password,
+  #  :authentication       => "plain",
+  #  :enable_starttls_auto => true
+  # }
 
   # Raises error for missing translations
   # config.action_view.raise_on_missing_translations = true

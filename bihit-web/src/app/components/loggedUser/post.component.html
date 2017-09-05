@@ -1,0 +1,93 @@
+<div class="row" style="overflow:auto">
+    <div class="box box-primary">
+        <div class="box-header with-border">
+            <div class="row" style="margin-bottom:30px; margin-right:10px; margin-left:10px; display:block">
+                <div class="col-md-6" style="margin-top:5px">
+                    <h3 class="box-title" style="margin-top:3px">{{subcategory.title}}</h3>
+                </div>
+                <div class="col-md-6" style="margin-top:5px">
+                    <button style="margin-top:5px" class="btn btn-success" data-toggle="modal" data-target="#addPost" style="float:right"  (click)="resetCurrent()">Kreirajte post</button>
+                </div>
+            </div> 
+        </div> 
+        <div class="box-body" style="overflow:auto">
+            <div class="row" style="width:95%; margin-left:3%">
+                <p *ngIf="empty">Trenutno nema postova</p>
+                <div class="alert alert-success" *ngIf="successfull">
+                    Uspjesno ste kreirali post
+                </div> 
+                <div *ngFor="let post of posts | paginate: { itemsPerPage: 4, currentPage: p }" style="margin-bottom: 25px"> 
+                    <div style="padding:10px; overflow:auto; margin-bottom:10px; min-height:100px"> 
+                        <div class="row" style="margin-bottom:15px; border-bottom: 1px solid black; ">
+                            <h4 class="float-left" style="margin-left:10px">{{post.title}}</h4>
+                            <p class="float-right" style="margin-right:10px">{{ post.createdAt | date:'medium' }}  </p>
+                        </div>
+                        <div style="background-color: #e8e6e5; padding:10px">
+                            <div class="row" style="min-height: 100px">
+                                <p  style="margin-left:10px">{{post.short}}</p>
+                            </div>
+                            <div class="row">
+                                <p class="float-left"  style="margin-left:20px"><b>Autor: </b>{{post.autor.email}}</p>
+                                <button class="float-right btn-primary"  style="margin-right:10px" (click) = "showPost(post.id)">Pročitaj</button>
+                                <p class="float-right" style="margin-right:5px"> Like: {{post.likes}},  Komentara: {{post.comments}}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <pagination-controls style="text-align:center" (pageChange)="p = $event" 
+                   previousLabel="Prethodna"
+                   nextLabel="Sljedeca"></pagination-controls>
+            </div>
+        </div> 
+    </div>
+</div>
+
+
+<div class="modal fade" id="addPost" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+        <form #form="ngForm" (ngSubmit)="create(post)"> 
+            <div class="modal-header">
+                <h3 class="modal-title" id="exampleModalLabel">Kreiraj post</h3>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="alert alert-danger" *ngIf="errorPost">
+                    Kreiranje posta nije uspjelo, greska na serveru.
+                </div>
+                <div class="alert alert-success" *ngIf="successfull">
+                    Uspjesno ste kreirali post
+                </div>
+                <div class="form-group">
+                    <label for="postTitle" class="form-control-label">Naslov:</label><label style="color:red">*</label>
+                    <p class="custom-alert" *ngIf="(title.invalid && (title.dirty || title.touched)) || emptyTitle">
+                        <b>Molimo unesite naslov</b>
+                    </p>  
+                    <input type="text" name="postTitle" class="form-control" required id="postTitle" 
+                           [(ngModel)]="post.title" #title="ngModel" placeholder="Unesite naslov">
+                </div>
+                <div class="form-group">
+                  <label for="postShort" class="form-control-label">Kratak opis:</label><label style="color:red">*</label>
+                  <p class="custom-alert" *ngIf="(short.invalid && (short.dirty || short.touched)) || emptyShort">
+                        <b>Molimo unesite kratak opis</b>
+                  </p> 
+                  <textarea type="text" class="form-control" id="postShort" [(ngModel)]="post.short" #short="ngModel" name="postShort"></textarea>
+                </div>
+                <div class="form-group">
+                  <label for="postLong" class="form-control-label">Tekst:</label><label style="color:red">*</label>
+                  <p class="custom-alert" *ngIf="(long.invalid && (long.dirty || long.touched)) || emptyLong">
+                     <b>Molimo unesite Vas tekst</b>
+                  </p> 
+                  <textarea type="text" style="min-height:150px" class="form-control" id="postLong" [(ngModel)]="post.long" #long="ngModel" name="postLong"></textarea>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Odustani</button>
+                <button type="submit" class="btn btn-success">Kreiraj post</button>
+            </div>
+        </form>
+        </div>
+    </div>
+</div>

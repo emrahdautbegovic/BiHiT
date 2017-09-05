@@ -1,0 +1,94 @@
+<div class="row">
+    <div class="box box-primary">
+        <div class="box-header with-border">
+            <div class="row">
+                <div class="col-md-6" style="margin-top:5px">
+                    <h3 class="box-title" style="margin-top:3px">Kategorije</h3>
+                </div>
+                <div class="col-md-6" style="margin-top:5px">
+                    <button style="margin-top:5px" class="btn btn-success" data-toggle="modal" data-target="#addCategory" style="float:right"  (click)="resetCurrent()">Dodajte kategoriju</button>
+                </div>
+            </div> 
+        </div> 
+
+        <div class="box-body">
+            <div class="row" style="width:95%; margin-left:3%">
+                <p *ngIf="empty">Trenutno nema kategorija</p>
+                <div *ngFor="let cat of categories"> 
+                    <div class="display-category">
+                        <div class="row">
+                            <h4 class="title col-sm-6">{{cat.title}}</h4>
+                            <button class="btn btn-small btn-danger col-sm-1" style="float:right" data-toggle="modal" data-target="#deleteCategory" (click)="setCurrent(cat)">Obrisi</button>
+                            <button class="btn btn-small btn-primary col-sm-1" style="float:right" (click)="editCategory(cat)">Uredi</button>
+                        </div>
+                        <div class="description">{{cat.description}}</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="box-footer">
+        </div>
+    </div>
+</div>
+
+
+<div class="modal fade" id="addCategory" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+        <form #form="ngForm" (ngSubmit)="create(category)">
+        <div class="modal-header">
+            <h3 class="modal-title" id="exampleModalLabel">Nova kategorija</h3>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body">
+            <div class="alert alert-danger" *ngIf="errorCategory">
+                Kreiranje kategorije nije uspjelo, greska na serveru.
+            </div>
+            <div class="alert alert-success" *ngIf="successfull">
+                Uspjesno ste kreirali kategoriju
+            </div>
+            <div class="form-group">
+                <label for="categoryTitle" class="form-control-label">Naziv:</label><label style="color:red">*</label>
+                <p class="custom-alert" *ngIf="(ct.invalid && (ct.dirty || ct.touched)) || emptyCategory">
+                    <b>Molimo unesite naziv kategorije.</b>
+                </p>
+                <input type="text" name="categoryTitle" class="form-control" required id="categoryTitle" [(ngModel)]="category.title" #ct="ngModel" name="categoryTitle" placeholder="Unesite naziv kategorije">
+            </div>
+            <div class="form-group">
+                <label for="categoryDescription" class="form-control-label">Opis:</label>
+                <textarea type="text" class="form-control" id="categoryDescription" [(ngModel)]="category.description" name="categoryDescription"></textarea>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Odustani</button>
+            <button type="submit" class="btn btn-success">Dodaj kategoriju</button>
+        </div>
+        </form>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="deleteCategory" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+        <div class="modal-header">
+            <h3 class="modal-title" id="deleteCategoryLabel">Obrisi kategoriju</h3>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body">
+            <div class="form-group">
+                <h4 style="color:red; text-align:center">Jeste li sigurni da zelite obrisati kategoriju: {{category.title}}</h4>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Odustani</button>
+            <button type="button" class="btn btn-primary" (click)="delete(category)" data-dismiss="modal">Obrisi</button>
+        </div>
+        </div>
+    </div>
+</div>
+       

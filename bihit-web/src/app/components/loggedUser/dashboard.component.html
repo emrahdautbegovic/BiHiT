@@ -1,0 +1,62 @@
+<div style="height:100%">
+<nav class="navbar navbar-inverse">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>                        
+      </button>
+      <a class="navbar-brand" style="color:white" routerLink="/home" routerLinkActive="active">BiHiT</a>
+    </div>
+    <div class="collapse navbar-collapse" id="myNavbar">
+      <ul class="nav navbar-nav navbar-right">
+        <li class="odjava"><a class="odjava" (click)="logout()" style="color:white"><span style="color:white" class="glyphicon glyphicon-log-out"></span> Odjava</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+<div style="height:100%">
+		<div class="col-md-3" style="padding:1px;">
+			<div class="sidebar-toggle" data-toggle="push-menu" >
+				<div class="profile-usermenu">
+					<ul class="nav">
+						<li>
+							<a routerLink="/dashboard" routerLinkActive="active">
+							<i class="glyphicon glyphicon-home"></i>
+							Pocetna </a>
+						</li>
+						<!-- <li>
+							<a routerLink="/dashboard/settings" routerLinkActive="active">
+							<i class="glyphicon glyphicon-user"></i>
+							Podesavanje profila </a>
+						</li> -->
+						<li>
+							<a routerLink="/dashboard/category" routerLinkActive="active">
+							<i class="glyphicon glyphicon-search"></i>
+							Kategorije </a>
+						</li>
+						<li>
+							<a  routerLink="/dashboard/questions" routerLinkActive="active">
+							<i class="glyphicon glyphicon-question-sign"></i>
+							Pitanja </a>
+						</li>
+						<li>
+							<a  routerLink="/dashboard/suggestions" routerLinkActive="active">
+							<i class="glyphicon glyphicon-flag"></i>
+							Sugestije </a>
+                        </li>
+                        <li>
+							<a  (click)="logout()">
+							<i class="glyphicon glyphicon-off"></i>
+							Odjava </a>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+		<div class="col-md-9" style="height:100%; padding:20px; border-left:1px solid black; overflow:auto">
+      <router-outlet></router-outlet>
+		</div>
+	</div>
+<div>

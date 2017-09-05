@@ -1,0 +1,85 @@
+ <div class="col-md-12" style="height:100%">
+    <div class="panel with-nav-tabs panel-primary" style="height:100%">
+        <div class="panel-heading">
+            <ul class="nav nav-tabs">
+                <li class="active"><a href="#tab1primary" data-toggle="tab">Postovi</a></li>
+                <li><a href="#tab2primary" data-toggle="tab">Pitanja i odgovori</a></li>
+            </ul>
+            
+        </div>
+        <div class="panel-body" style="height:100%">
+            <div class="tab-content">
+                <div class="tab-pane fade in active" id="tab1primary">
+                     <div class="row panel" style="min-height:100px">
+                        <div class="col-md-12 float-left">
+                            <h5>Pretraga:</h5>
+                             <div class="row">    
+                                <div class="col-md-12">
+                                    <div class="input-group">
+                                        <input type="hidden" name="search_param" value="all" id="search_param">         
+                                        <input [(ngModel)]="postFilter" name="postFilter" type="text" class="form-control" name="x" placeholder="Unesite ključnu riječ">
+                                        <span class="input-group-btn">
+                                            <button (click)="filterPosts(postFilter)" class="btn btn-default" type="button"><span class="glyphicon glyphicon-search"></span></button>
+                                        </span>
+                            
+                                    </div>
+                                </div>
+                                <div class="col-md-12" style="margin-top:10px; margin-bottom:10px">
+                                   <button class="float-right" style="width:40%" (click)="createPost()">Dodaj novi</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>  
+                    <div *ngFor="let post of posts | paginate: { itemsPerPage: 4, currentPage: p, id: 'd' }" style="margin-bottom: 25px"> 
+                        <div class="row">
+                            <p class="col-md-12 float-left" style="overflow:hidden">{{post.title}}</p>
+                        </div>
+                        <div class="row" style="margin-bottom: 30px; border-bottom: 1px solid #337ab7">
+                            <button class="btn btn-primary float-right" style="width:100px" (click)="readPost(post.id)">Čitaj</button>
+                        </div>
+                    </div>
+                    <pagination-controls id="d" style="text-align:center" (pageChange)="p = $event" 
+                        previousLabel="Prethodna"
+                        nextLabel="Sljedeca">
+                    </pagination-controls>
+                </div>
+                <div class="tab-pane fade" id="tab2primary">
+                     <div class="row panel" style="min-height:100px">
+                        <div class="col-md-12 float-left">
+                            <h5>Pretraga:</h5>
+                             <div class="row">    
+                                <div class="col-md-12">
+                                    <div class="input-group">
+                                        <input type="hidden" name="search_param" value="all" id="search_param">         
+                                        <input [(ngModel)]="questionFilter" name="questionFilter" type="text" class="form-control" name="x" placeholder="Unesite ključnu riječ">
+                                        <span class="input-group-btn">
+                                            <button (click)="filterQuestions(questionFilter)" class="btn btn-default" type="button"><span class="glyphicon glyphicon-search"></span></button>
+                                        </span>
+                            
+                                    </div>
+                                </div>
+                                <div class="col-md-12" style="margin-top:10px; margin-bottom:10px">
+                                   <button class="float-right" style="width:40%" (click)="createQuestion()">Postavi pitanje</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>  
+                    <div *ngFor="let question of questions | paginate: { itemsPerPage: 4, currentPage: q, id: 'que' }" > 
+                        <!-- <div class="row" style="overflow:hidden; border-bottom: 1px solid #337ab7; min-height:80px"> -->
+                        <div class="row">
+                            <p class="col-md-12 float-left" style="overflow:hidden">{{question.title}}</p>
+                        </div>
+                        <div class="row" style="margin-bottom: 30px; border-bottom: 1px solid #337ab7">
+                            <button class="btn btn-primary float-right" style="width:100px" (click)="readQuestion(question.id)">Čitaj</button>
+                        </div> 
+                    </div>
+                    <pagination-controls id="que" style="text-align:center" (pageChange)="q = $event" 
+                        previousLabel="Prethodna"
+                        nextLabel="Sljedeca">
+                    </pagination-controls>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- <input type="text" placeholder="Pretraga" class="form-control" id="email"> -->

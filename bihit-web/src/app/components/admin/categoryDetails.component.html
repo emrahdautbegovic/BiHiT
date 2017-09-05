@@ -1,0 +1,47 @@
+<h3>{{category.title}}</h3>
+<p>{{category.description}}</p><br>
+
+
+<div class="row" style="margin-right:10px; margin-left:10px">
+    <h4 class="float-left">Podkategorije</h4>
+    <button class="btn btn-small btn-success float-right col-md-2" data-toggle="modal" data-target="#addSubCategory" (click)="reset()">Dodaj</button>
+</div>
+<div *ngFor="let sub of subcategories">
+    <p>{{sub.title}}</p>
+</div>
+
+
+
+<div class="modal fade" id="addSubCategory" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+        <form #form="ngForm" (ngSubmit)="create(subcategory)">
+        <div class="modal-header">
+            <h3 class="modal-title" id="exampleModalLabel">Nova podkategorija</h3>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body">
+             <div class="alert alert-danger" *ngIf="errorCategory">
+                Kreiranje kategorije nije uspjelo, greska na serveru.
+            </div>
+            <div class="alert alert-success" *ngIf="successfull">
+                Uspjesno ste kreirali kategoriju
+            </div> 
+            <div class="form-group">
+                 <label for="subcategoryTitle" class="form-control-label">Naziv:</label><label style="color:red">*</label>
+                 <p class="custom-alert" *ngIf="(ct.invalid && (ct.dirty || ct.touched)) || emptyCategory">
+                    <b>Molimo unesite naziv podkategorije.</b>
+                 </p>  
+                <input type="text" name="subcategoryTitle" class="form-control" required id="subcategoryTitle" [(ngModel)]="subcategory.title" #ct="ngModel" name="subcategoryTitle" placeholder="Unesite naziv podkategorije">
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Odustani</button>
+            <button type="submit" class="btn btn-success col-md-2">Dodaj</button>
+        </div>
+        </form>
+        </div>
+    </div>
+</div>

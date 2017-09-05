@@ -17,16 +17,15 @@
 default: &default
   adapter: postgresql
   encoding: unicode
-  username: emrah
-  password: bihit
+  host: localhost
   # For details on connection pooling, see rails configuration guide
   # http://guides.rubyonrails.org/configuring.html#database-pooling
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
 
 development:
   <<: *default
-  database: bihit_development
-
+  database: devbase
+  host: localhost
   # The specified database role being used to connect to postgres.
   # To create additional roles in postgres see `$ createuser --help`.
   # When left blank, postgres will use the default role. This is
@@ -59,9 +58,8 @@ development:
 # Do not set this db to the same as development or production.
 test:
   <<: *default
-  database: bihit_test
+  database: testbase
   username: emrah
-  password: bihit
 # As with config/secrets.yml, you never want to store sensitive information,
 # like your database password, in your source code. If your source code is
 # ever seen by anyone, they now have access to your database.
@@ -83,6 +81,5 @@ test:
 #
 production:
   <<: *default
-  database: bihit_production
+  database: prodbase
   username: emrah
-  password: bihit
