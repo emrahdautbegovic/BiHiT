@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
   before_action :authenticate_admin!
-  before_action :set_user, only: [:show]
+  before_action :set_user, only: [:show, :update, :destroy]
   def index
     @users = User.all
     render json: @users
@@ -8,6 +8,15 @@ class UsersController < ApplicationController
 
   def show
     render json: @user
+  end
+
+  def update
+    @user.active = false
+    @user.save
+  end
+
+  def destroy
+    @user.destroy
   end
 
   private
