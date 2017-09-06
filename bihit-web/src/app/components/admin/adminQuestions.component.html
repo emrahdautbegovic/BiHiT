@@ -1,1 +1,59 @@
-<p>questions</p>
+<div class="row" style="overflow:auto">
+    <div class="box box-primary">
+        <div class="box-header with-border">
+            <div class="row" style="margin-bottom:30px; margin-right:10px; margin-left:10px">
+                <div class="col-md-6" style="margin-top:5px">
+                    <h3 class="box-title" style="margin-top:3px">Pitanja</h3>
+                </div>
+            </div> 
+        </div> 
+
+        <div class="box-body" style="overflow:auto">
+            <div class="row" style="width:95%; margin-left:3%">
+                <p *ngIf="empty">Trenutno nema pitanja</p>
+              
+                <div *ngFor="let que of questions | paginate: { itemsPerPage: 3, currentPage: p }"> 
+                    <div style="padding:10px; overflow:auto; margin-bottom:10px; min-height:150px; border: 1px solid black; border-radius:4px"> 
+                        <div class="row" style="margin-bottom:15px; border-bottom: 1px solid blue">
+                             <p class="col-sm-6 float-left"><b>Autor: </b>{{que.email}}</p>
+                                <p class="col-sm-6 float-right" style="text-align:right"><b>Vrijeme: </b>{{ que.createdAt | date:'medium' }}  </p>
+                        </div>
+                        <div>
+                            <div class="row">
+                                <p class="title col-sm-6">{{que.title}}</p>
+                                <a class="col-sm-6 float-right" style="text-align:right" data-toggle="modal" data-target="#deleteQuestion" (click)="setQuestion(que)">Obrisi</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <pagination-controls style="text-align:center" (pageChange)="p = $event" 
+                   previousLabel="Prethodna"
+                   nextLabel="Sljedeca"></pagination-controls>
+            </div>
+        </div>
+    </div>
+</div>
+
+ 
+<div class="modal fade" id="deleteQuestion" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+        <div class="modal-header">
+            <h3 class="modal-title" id="deleteQuestionLabel">Obrisi pitanje</h3>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body">
+            <div class="form-group">
+                <h4 style="color:red; text-align:center">Jeste li sigurni da zelite obrisati pitanje?</h4>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Odustani</button>
+            <button type="button" class="btn btn-primary" (click)="delete(question)" data-dismiss="modal">Obrisi</button>
+        </div>
+        </div>
+    </div>
+</div> 
+       

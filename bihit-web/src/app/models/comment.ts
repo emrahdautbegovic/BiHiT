@@ -6,7 +6,8 @@ export class Comment {
     autor_id: number;
     created_at: string;
     autor: Autor;
-    post_id: number
+    post_id: number;
+    
     constructor(id: number, tekst: string, autor_id: number, created_at: string, autor: Autor, post_id: number){
         this.id = id;
         this.tekst = tekst;

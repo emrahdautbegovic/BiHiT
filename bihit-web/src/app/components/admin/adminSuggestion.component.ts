@@ -14,8 +14,6 @@ export class AdminSuggestionsComponent {
     empty: boolean = false;
     suggestions: Suggestion[] = new Array;
     suggestion: Suggestion; 
-    emptySuggestion: boolean = false;
-    errorSuggestion: boolean = false;
     successfull: boolean = false;
     ngOnInit() {
         // initialize model here
@@ -39,7 +37,7 @@ export class AdminSuggestionsComponent {
             error =>    console.log(error)
         );
 
-        this._tokenService.get('/suggestions').subscribe(
+        this._tokenService.get('suggestions').subscribe(
             (res) => {
                 console.log(res);
                res.json().forEach(element => {
@@ -53,7 +51,7 @@ export class AdminSuggestionsComponent {
     }
 
     delete(suggestion: Suggestion){
-        this._tokenService.delete("/suggestions/"+suggestion.id, {})
+        this._tokenService.delete("suggestions/"+suggestion.id, {})
                           .subscribe(data => this.suggestion = data.json());
             
         var index = this.suggestions.indexOf(suggestion, 0);

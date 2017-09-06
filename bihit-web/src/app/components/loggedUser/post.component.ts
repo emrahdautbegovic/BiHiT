@@ -12,6 +12,7 @@ import { Subcategory } from '../../models/subcategory';
 import { Post } from '../../models/post';
 import { Comment } from '../../models/comment'; 
 import { Like } from '../../models/like'; 
+declare var jQuery:any;
 
 @Component({    
     selector: 'app-post',
@@ -163,6 +164,7 @@ export class PostComponent implements OnInit{
                 this.emptyTitle = false;
                 this.successfull = true;
                 this.errorPost = false;
+                 jQuery("#addPost").modal("hide");
             },
             (err) => { this.errorPost = true; }
         )
@@ -170,5 +172,20 @@ export class PostComponent implements OnInit{
 
     showPost(post_id: number){
         this.router.navigate(['/dashboard/post', post_id]);
+    }
+
+    resetCurrent(){
+        this.post = {
+            id: null,
+            title: '',
+            short: '',
+            long: '',
+            user_id: null,
+            subcategory_id: null,
+            createdAt: '',
+            autor: new Autor(0 , "empty"),
+            likes: null,
+            comments: null
+        }
     }
 }

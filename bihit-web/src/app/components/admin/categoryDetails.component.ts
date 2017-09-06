@@ -108,19 +108,21 @@ export class CategoryDetailsComponent {
             category_id: null
         }
     }
+
+    delete(subcategory: Subcategory){
+        this._tokenService.delete("subcategories/"+subcategory.id, {})
+          .subscribe(data => {
+            this.subcategory = data.json()
+          });
+        var index = this.subcategories.indexOf(subcategory, 0);
+        if (index > -1) {
+            this.subcategories.splice(index, 1);
+        }
+        if(this.subcategories.length == 0)
+            this.empty = true;
+    }
+
+    setSubcategory(subcategory: Subcategory){
+        this.subcategory = subcategory;
+    }
 }
-
-
-
-
-  
-
-        // this._tokenService.get('/suggestions').subscribe(
-        //     (res) => {
-        //         console.log(res);
-        //          res.json().forEach(element => {
-        //        });
-        //     },
-        //     (er) => console.log(er)
-        // )
-    // }

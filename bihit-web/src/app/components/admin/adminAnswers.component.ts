@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 import { Angular2TokenService } from 'angular2-token';
 import { Answer } from '../../models/answer';
+import { Autor } from '../../models/autor';
 
 @Component({
   selector: 'app-admin-answers',
@@ -10,59 +11,63 @@ import { Answer } from '../../models/answer';
 })
 
 export class AdminAnswersComponent {
-//     title = 'BiHiT';
-//     empty: boolean = false;
-//     suggestions: Suggestion[] = new Array;
-//     suggestion: Suggestion; 
-//     emptySuggestion: boolean = false;
-//     errorSuggestion: boolean = false;
-//     successfull: boolean = false;
-//     ngOnInit() {
-//         // initialize model here
-//         this.suggestion = {
-//             id: -1,
-//             title: '',
-//             email: '',
-//             createdAt: ''
-//         }
-//     }
-//    constructor(private router: Router, private _tokenService: Angular2TokenService) {
-//         this._tokenService.init({
-//             apiPath: "http://localhost:3000",
-//             signOutPath: 'admin_auth/sign_out',
-//             validateTokenPath:   'admin_auth/validate_token',
-//         });
-//         this._tokenService.validateToken().subscribe(
-//             res =>     {
-//              console.log(res);
-//             },
-//             error =>    console.log(error)
-//         );
+    title = 'BiHiT';
+    empty: boolean = false;
+    answers: Answer[] = new Array;
+    answer: Answer; 
+    successfull: boolean = false;
+    ngOnInit() {
+        // initialize model here
+        this.answer = {
+            id: -1,
+            title: '',
+            user_id: null,
+            created_at: '',
+            question_id: null,
+            autor: null
+        }
+    }
+   constructor(private router: Router, private _tokenService: Angular2TokenService) {
+        this._tokenService.init({
+            apiPath: "http://localhost:3000",
+            signOutPath: 'admin_auth/sign_out',
+            validateTokenPath:   'admin_auth/validate_token',
+        });
+        this._tokenService.validateToken().subscribe(
+            res =>     {
+             console.log(res);
+            },
+            error =>    console.log(error)
+        );
 
-//         this._tokenService.get('/suggestions').subscribe(
-//             (res) => {
-//                 console.log(res);
-//                res.json().forEach(element => {
-//                    this.suggestions.push(new Suggestion(element.id, element.title, element.email, element.created_at));
-//                });
-//                 if(this.suggestions.length == 0)
-//                     this.empty = true;
-//             },
-//             (er) => console.log(er)
-//         )
-//     }
+        this._tokenService.get('admin_answers').subscribe(
+            (res) => {
+               res.json().forEach(element => {
+                  this._tokenService.get('adminusers/'+element.user_id).subscribe(
+                     (data) => {  
+                       console.log(data);
+                       var aut = data.json();
+                       this.answers.push(new Answer(element.id, element.title, element.user_id, element.created_at, element.question_id, new Autor(aut.id, aut.email)));
+                     },
+                     (error) => { console.log(error) }
+                    )
+                });
+            },
+            (er) => console.log(er)
+        )
+    }
 
-//     delete(suggestion: Suggestion){
-//         this._tokenService.delete("/suggestions/"+suggestion.id, {})
-//                           .subscribe(data => this.suggestion = data.json());
+    delete(answer: Answer){
+        this._tokenService.delete("admin_answers/"+answer.id, {})
+                          .subscribe(data => this.answer = data.json());
             
-//         var index = this.suggestions.indexOf(suggestion, 0);
-//         if (index > -1) {
-//             this.suggestions.splice(index, 1);
-//         }
-//     }
+        var index = this.answers.indexOf(answer, 0);
+        if (index > -1) {
+            this.answers.splice(index, 1);
+        }
+    }
 
-//      setSuggestion(suggestion: Suggestion){
-//         this.suggestion = suggestion;
-//     }
+     setAnswer(answer: Answer){
+        this.answer = answer;
+    }
 }

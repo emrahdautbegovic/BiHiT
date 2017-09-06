@@ -17,18 +17,12 @@
                 <div *ngFor="let sug of suggestions | paginate: { itemsPerPage: 3, currentPage: p }"> 
                     <div style="padding:10px; overflow:auto; margin-bottom:10px; min-height:150px; border: 1px solid black; border-radius:4px"> 
                         <div class="row" style="margin-bottom:15px; border-bottom: 1px solid blue">
-                            <div class="col-md-6">
-                                <p class="float-left"><b>Autor: </b>{{sug.email}}</p>
-                            </div>
-                            <div style="margin-right:10px">
-                                <p class="float-right"><b>Vrijeme: </b>{{ sug.createdAt | date:'medium' }}  </p>
-                            </div>
+                             <p class="col-sm-6 float-left"><b>Autor: </b>{{sug.email}}</p>
+                                <p class="col-sm-6 float-right" style="text-align:right"><b>Vrijeme: </b>{{ sug.createdAt | date:'medium' }}  </p>
                         </div>
-                        <div>
-                            <a class="float-right" data-toggle="modal" data-target="#deleteSuggestion" (click)="setSuggestion(sug)">Obrisi</a>
-                            <div class="row">
-                                <p class="title col-sm-6">{{sug.title}}</p>
-                            </div>
+                        <div class="row">
+                            <p class="title col-sm-6">{{sug.title}}</p>
+                            <a class="col-sm-6 float-right" style="text-align:right" data-toggle="modal" data-target="#deleteSuggestion" (click)="setSuggestion(sug)">Obrisi</a>
                         </div>
                     </div>
                 </div>
@@ -52,7 +46,7 @@
         </div>
         <div class="modal-body">
             <div class="form-group">
-                <h4 style="color:red; text-align:center">Jeste li sigurni da zelite obrisati sugestiju</h4>
+                <h4 style="color:red; text-align:center">Jeste li sigurni da zelite obrisati sugestiju?</h4>
             </div>
         </div>
         <div class="modal-footer">

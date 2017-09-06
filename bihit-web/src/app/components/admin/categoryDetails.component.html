@@ -6,9 +6,19 @@
     <h4 class="float-left">Podkategorije</h4>
     <button class="btn btn-small btn-success float-right col-md-2" data-toggle="modal" data-target="#addSubCategory" (click)="reset()">Dodaj</button>
 </div>
-<div *ngFor="let sub of subcategories">
-    <p>{{sub.title}}</p>
+ <div *ngFor="let sub of subcategories | paginate: { itemsPerPage: 3, currentPage: p }"> 
+    <div style="padding:10px; overflow:auto; margin-bottom:10px; min-height:150px; border: 1px solid black; border-radius:4px"> 
+        <div>
+            <div class="row">
+                <p class="title col-sm-6">{{sub.title}}</p>
+                <a class="col-sm-6 float-right" style="text-align:right" data-toggle="modal" data-target="#deleteSubcategory" (click)="setSubcategory(sub)">Obrisi</a>
+            </div>
+        </div>
+    </div>
 </div>
+  <pagination-controls style="text-align:center" (pageChange)="p = $event" 
+                   previousLabel="Prethodna"
+                   nextLabel="Sljedeca"></pagination-controls>
 
 
 
@@ -45,3 +55,25 @@
         </div>
     </div>
 </div>
+
+<div class="modal fade" id="deleteSubcategory" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+        <div class="modal-header">
+            <h3 class="modal-title" id="deleteSubcategoryLabel">Obrisi podkategoriju</h3>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body">
+            <div class="form-group">
+                <h4 style="color:red; text-align:center">Jeste li sigurni da zelite obrisati podkategoriju?</h4>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Odustani</button>
+            <button type="button" class="btn btn-primary" (click)="delete(subcategory)" data-dismiss="modal">Obrisi</button>
+        </div>
+        </div>
+    </div>
+</div> 

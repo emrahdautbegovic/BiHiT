@@ -57,9 +57,6 @@
                 <div class="alert alert-danger" *ngIf="errorPost">
                     Kreiranje posta nije uspjelo, greska na serveru.
                 </div>
-                <div class="alert alert-success" *ngIf="successfull">
-                    Uspjesno ste kreirali post
-                </div>
                 <div class="form-group">
                     <label for="postTitle" class="form-control-label">Naslov:</label><label style="color:red">*</label>
                     <p class="custom-alert" *ngIf="(title.invalid && (title.dirty || title.touched)) || emptyTitle">

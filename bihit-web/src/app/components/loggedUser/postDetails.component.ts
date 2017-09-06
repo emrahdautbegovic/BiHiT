@@ -91,7 +91,7 @@ export class PostDetailsComponent implements OnInit{
                     },
                     (err) => { console.log(err) }
                 )
-                this._tokenService.get('likes?user_id='+d.user_id+"&post_id="+d.id).subscribe(
+                this._tokenService.get('likes?user_id='+this._tokenService.currentUserData.id+"&post_id="+d.id).subscribe(
                     (data) => {
                         var d = data.json();
                         if(d.length === 0) this.liked = false;

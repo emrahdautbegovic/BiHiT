@@ -10,59 +10,63 @@ import { Question } from '../../models/question';
 })
 
 export class AdminQuestionsComponent {
-//     title = 'BiHiT';
-//     empty: boolean = false;
-//     suggestions: Suggestion[] = new Array;
-//     suggestion: Suggestion; 
-//     emptySuggestion: boolean = false;
-//     errorSuggestion: boolean = false;
-//     successfull: boolean = false;
-//     ngOnInit() {
-//         // initialize model here
-//         this.suggestion = {
-//             id: -1,
-//             title: '',
-//             email: '',
-//             createdAt: ''
-//         }
-//     }
-//    constructor(private router: Router, private _tokenService: Angular2TokenService) {
-//         this._tokenService.init({
-//             apiPath: "http://localhost:3000",
-//             signOutPath: 'admin_auth/sign_out',
-//             validateTokenPath:   'admin_auth/validate_token',
-//         });
-//         this._tokenService.validateToken().subscribe(
-//             res =>     {
-//              console.log(res);
-//             },
-//             error =>    console.log(error)
-//         );
+    title = 'BiHiT';
+    empty: boolean = false;
+    questions: Question[] = new Array;
+    question: Question; 
+    emptyQuestion: boolean = false;
+    errorQuestion: boolean = false;
+    successfull: boolean = false;
+    ngOnInit() {
+        // initialize model here
+        this.question = {
+            id: -1,
+            title: '',
+            email: '',
+            createdAt: ''
+        }
+    }
+   constructor(private router: Router, private _tokenService: Angular2TokenService) {
+        
+        this._tokenService.init({
+            apiPath: "http://localhost:3000",
+            signOutPath: 'admin_auth/sign_out',
+            validateTokenPath:   'admin_auth/validate_token',
+        });
 
-//         this._tokenService.get('/suggestions').subscribe(
-//             (res) => {
-//                 console.log(res);
-//                res.json().forEach(element => {
-//                    this.suggestions.push(new Suggestion(element.id, element.title, element.email, element.created_at));
-//                });
-//                 if(this.suggestions.length == 0)
-//                     this.empty = true;
-//             },
-//             (er) => console.log(er)
-//         )
-//     }
+        this._tokenService.validateToken().subscribe(
+            res =>     {
+             console.log(res);
+            },
+            error =>    console.log(error)
+        );
 
-//     delete(suggestion: Suggestion){
-//         this._tokenService.delete("/suggestions/"+suggestion.id, {})
-//                           .subscribe(data => this.suggestion = data.json());
+        this._tokenService.get('admin_questions').subscribe(
+            (res) => {
+                console.log(res);
+               res.json().forEach(element => {
+                   this.questions.push(new Question(element.id, element.title, element.email, element.created_at));
+                   console.log("ide");
+               });
+                if(this.questions.length == 0)
+                    this.empty = true;
+            },
+            (er) => console.log(er)
+        )
+    }
+
+    delete(question: Question){
+        this._tokenService.delete("admin_questions/"+question.id, {})
+                          .subscribe(data => this.question = data.json());
             
-//         var index = this.suggestions.indexOf(suggestion, 0);
-//         if (index > -1) {
-//             this.suggestions.splice(index, 1);
-//         }
-//     }
+        var index = this.questions.indexOf(question, 0);
+        if (index > -1) {
+            this.questions.splice(index, 1);
+        }
+    }
 
-//      setSuggestion(suggestion: Suggestion){
-//         this.suggestion = suggestion;
-//     }
+     setQuestion(question: Question){
+        this.question = question;
+        console.log("question id: "+ this.question.id);
+    }
 }
