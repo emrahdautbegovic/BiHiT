@@ -81,5 +81,6 @@ test:
 #
 production:
   <<: *default
-  database: prodbase
-  username: emrah
+  database: d3omcq8iod0gdc
+  username: zwjzogggoyvrcv
+  password: eb68b60114846684e709cf0cb6d287328c62a6ca420a9967d225e770697ac905
